@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Index</title>
+    <style>
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
+        .winner-message {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Tic Tac Toe</h1>
+<form action="/submit" method="post">
+
+    <label for="name">Enter your name :</label><br/>
+
+    <input type="text" name="fname"/> <br/>
+
+    <button type="submit">Submit</button>
+
+</form>
+
+<!-- Conditionally render the table and winner message -->
+<div th:if="${showTable}">
+    <form action="/makeMove" method="post">
+        <!-- 3 by 3 Table -->
+        <table border="1" style="border-collapse: collapse; margin-top: 20px;">
+            <tr>
+                <td id="1" style="width: 50px; height: 50px;" th:text="${cells[0]}"></td>
+                <td id="2" style="width: 50px; height: 50px;" th:text="${cells[1]}"></td>
+                <td id="3" style="width: 50px; height: 50px;" th:text="${cells[2]}"></td>
+            </tr>
+            <tr>
+                <td id="4" style="width: 50px; height: 50px;" th:text="${cells[3]}"></td>
+                <td id="5" style="width: 50px; height: 50px;" th:text="${cells[4]}"></td>
+                <td id="6" style="width: 50px; height: 50px;" th:text="${cells[5]}"></td>
+            </tr>
+            <tr>
+                <td id="7" style="width: 50px; height: 50px;" th:text="${cells[6]}"></td>
+                <td id="8" style="width: 50px; height: 50px;" th:text="${cells[7]}"></td>
+                <td id="9" style="width: 50px; height: 50px;" th:text="${cells[8]}"></td>
+            </tr>
+        </table>
+
+        <label for="turn">Enter number 1 - 9 :</label><br/>
+        <input type="text" name="choice" th:value="${choice}"/> <br/>
+        
+        <!-- Show error message if the choice is occupied -->
+        <div th:if="${errorMessage != null}" class="error-message" th:text="${errorMessage}"></div>
+
+        <!-- Show winner message if there's a winner -->
+        <div th:if="${winner != null}" class="winner-message" th:text="${winner}"></div>
+        
+        <button type="submit">Submit Move</button>
+    </form>
+</div>
+
+</body>
+</html>
